@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
+
+
+body {
+  margin: 0;
+  padding: 8% 0;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #40798C;
+}
+
+header {
+  border-radius: 8px 8px 0 0;
+}
+
+footer {
+  text-align: center;
+  border-radius: 0 0 8px 8px;
+}
+
+/* Desktop */
+@media (min-width: 1001px) {
+  main, header, footer {
+    display: block;
+    margin: auto;
+    width: 50%;
+    min-width: 900px;
+    background-color: #ffffff;
+    padding: 1% 0;
+  }
+}
+
+/* Tablet */
+@media (min-width: 601px) and (max-width: 1000px) {
+  main, header, footer {
+    display: block;
+    margin: auto;
+    width: 85%;
+    background-color: #ffffff;
+    padding: 1% 0;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  main, header, footer {
+    display: block;
+    margin: auto;
+    width: 95%;
+    background-color: #ffffff;
+    padding: 1% 0;
+  }
+}
+
+table {
+  width: 95%;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+.code {
+  width: 15%
+}
+
+.name {
+  width: 55%
+}
+
+.period {
+  text-align: center;
+  width: 15%;
+}
+
+.delete {
+  text-align: center;
+  width: 15%;
+}
+
+button {
+  color: #ffffff;
+  border: 0;
+  line-height: 44px;
+  padding: 0.5% 0;
+  background-color: #40798C;
+  border-radius: 4px;
+  width: 100%;
+  font-weight: 700;
+  font-size: 1em;
+}
+
+button:hover {
+  background-color: #5babc6;
+}
+
+h1 {
+  text-align: center;
+  margin: 0;
+}
+
+th {
+  text-align: left;
+}
