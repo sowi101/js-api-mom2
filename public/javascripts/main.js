@@ -1,3 +1,5 @@
+"use strict";
+
 window.onload = init;
 
 function init() {
@@ -7,10 +9,16 @@ function init() {
 // Function that adds event listener to delete button
 function callDeleteMethod() {
     let btnEl = document.querySelectorAll('button');
-    btnEl.forEach(e => e.addEventListener("click", function(e) {
+    btnEl.forEach(e => e.addEventListener("click", function (e) {
         let id = e.target.id;
         deleteCourse(id);
-}));
+    }));
+}
+
+function deleteMessage(text) {
+    let message = text;
+    let delMessage = document.getElementById("delete-message");
+    delMessage.innerHTML = message;
 }
 
 // Function to fetch all courses
@@ -31,13 +39,15 @@ function getCourses() {
 
 // Function to print all courses
 function printCourses(courses) {
+    // Save table element to variable
     const courseTable = document.getElementById('course-table');
     // Empty the table
     courseTable.innerHTML = "";
 
-    // For each that loops through all objects in the array and prints its information to the screen
-    courses.forEach(course => {
-        courseTable.innerHTML += `
+    if (courses.length > null) {
+        // For each that loops through all objects in the array and prints its information to the screen
+        courses.forEach(course => {
+            courseTable.innerHTML += `
             <tr id="${course._id}">
                 <td class="code">${course.courseId}</td>
                 <td class="name">${course.courseName}</td>
@@ -45,18 +55,26 @@ function printCourses(courses) {
                 <td class="delete"><button id="${course._id}">Radera</button></td>
             </tr>      
         `;
-    });
+        });
+    } else {
+        courseTable.innerHTML = `
+            <tr>
+                <td>Det finns inga kurser lagrade!</td>
+            </tr>
+        `
+    }
 
     // Call of function that adds eventlistener to delete button
     callDeleteMethod();
 }
 
-// Function to print information about a course
+// Function to delete course
 function deleteCourse(id) {
-    fetch("http://localhost:3000/courses/" + id, { method: 'DELETE'})
+    fetch("http://localhost:3000/courses/" + id, { method: 'DELETE' })
         .then(response => response.text())
-        .then(data => {
-            location.reload();
+        .then(text => {
+            getCourses();
+            deleteMessage(text);
         })
         .catch(err => console.log(err))
 }

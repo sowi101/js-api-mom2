@@ -15,8 +15,10 @@ let courses = [
 
 /* GET courses */
 router.get('/', function (req, res, next) {
+  // Convert the array with objects to JSON string
   let coursesObj = JSON.stringify(courses);
   res.contentType('application/json');
+  // Send response to client
   res.send(coursesObj);
 });
 
@@ -24,24 +26,44 @@ router.get('/', function (req, res, next) {
 
 /* GET course by id */
 router.get('/:id', function (req, res, next) {
+  // Save parameter value to a variable
   let id = req.params.id;
-
+  // Look for a certain object in the courses array and save it to a variable
   let foundCourse = courses.find((courses) => courses._id == id);
 
-  let courseObj = JSON.stringify(foundCourse);
-  res.contentType('application/json');
-  res.send(courseObj);
-});
+  // If statemant that checks if an object with a certain id can be found in the array
+  if (foundCourse) {
+    // Convert the object to JSON string
+    let courseObj = JSON.stringify(foundCourse);
+    res.contentType('application/json');
+    // Send response to client with object
+    res.send(courseObj);
+  } else {
+    // Send response to client about non-existing object
+    res.send("Angiven kurs finns inte!")
+  }
 
+});
 
 
 /* DELETE course by id */
 router.delete('/:id', function (req, res, next) {
+  // Save parameter value to a variable
   let id = req.params.id;
+  // Look for a certain object in the courses array and save it to a variable
   let foundCourse = courses.find((courses) => courses._id == id);
-  let courseIndex = courses.indexOf(foundCourse);
-  courses.splice(courseIndex,  1);
-  res.send('Kurs raderad!');
+
+  // If statemant that checks if an object with a certain id can be found in the array
+  if (foundCourse) {
+    let courseIndex = courses.indexOf(foundCourse);
+    courses.splice(courseIndex, 1);
+    // Send response to client
+    res.send('Kurs raderad!');
+  } else {
+    // Send response to client about non-existing object
+    res.send('Angiven kurs finns inte!')
+  }
+
 });
 
 
