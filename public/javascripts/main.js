@@ -1,27 +1,26 @@
 "use strict";
 
-window.onload = init;
-
-function init() {
-    getCourses();
-}
+// Call of function to get all courses when window is loaded
+window.onload = getCourses();
 
 // Function that adds event listener to delete button
 function callDeleteMethod() {
     let btnEl = document.querySelectorAll('button');
     btnEl.forEach(e => e.addEventListener("click", function (e) {
+        e.preventDefault();
         let id = e.target.id;
         deleteCourse(id);
     }));
 }
 
+// Function that prints message after course is deleted
 function deleteMessage(text) {
     let message = text;
     let delMessage = document.getElementById("delete-message");
     delMessage.innerHTML = message;
 }
 
-// Function to fetch all courses
+// Function with fetch to get all courses
 function getCourses() {
     fetch("http://localhost:3000/courses", {
         method: 'GET',
@@ -44,7 +43,8 @@ function printCourses(courses) {
     // Empty the table
     courseTable.innerHTML = "";
 
-    if (courses.length > null) {
+    // If statement that checks if there are any objects in the array
+    if (courses.length > 0) {
         // For each that loops through all objects in the array and prints its information to the screen
         courses.forEach(course => {
             courseTable.innerHTML += `
@@ -52,11 +52,12 @@ function printCourses(courses) {
                 <td class="code">${course.courseId}</td>
                 <td class="name">${course.courseName}</td>
                 <td class="period">${course.coursePeriod}</td>
-                <td class="delete"><button id="${course._id}">Radera</button></td>
+                <td class="delete"><button id="${course._id}" type="button">Radera</button></td>
             </tr>      
         `;
         });
     } else {
+        // Prints message if
         courseTable.innerHTML = `
             <tr>
                 <td>Det finns inga kurser lagrade!</td>
@@ -68,12 +69,14 @@ function printCourses(courses) {
     callDeleteMethod();
 }
 
-// Function to delete course
+// Function with fetch to delete course
 function deleteCourse(id) {
     fetch("http://localhost:3000/courses/" + id, { method: 'DELETE' })
         .then(response => response.text())
         .then(text => {
+            // Call of function to rerender table
             getCourses();
+            // Call of function to print message
             deleteMessage(text);
         })
         .catch(err => console.log(err))
