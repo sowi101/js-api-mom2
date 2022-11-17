@@ -3,7 +3,7 @@ const fs = require("fs");
 
 var router = express.Router();
 
-const coursesPath = './routes/courses.json';
+const coursesPath = './jsons/courses.json';
 
 /* GET courses */
 router.get('/', function (req, res, next) {
@@ -39,10 +39,11 @@ router.get('/:id', function (req, res, next) {
       // Header to indicate in which format response is sent
       res.contentType('application/json');
       // Send response to client with object
+
       res.send(courseObj);
     } else {
       // Send response to client about non-existing object
-      res.send("Angiven kurs finns inte!")
+      res.json({ message: "Angiven kurs finns inte!" })
     }
   });
 });
@@ -72,10 +73,10 @@ router.delete('/:id', function (req, res, next) {
         if(err) console.log('error', err);
       });
       // Send response to client
-      res.send('Kurs raderad!');
+      res.json({ message: 'Kurs raderad!'});
     } else {
       // Send response to client about non-existing object
-      res.send('Angiven kurs finns inte!')
+      res.json({ message: 'Angiven kurs finns inte!'})
     }
   });
 });

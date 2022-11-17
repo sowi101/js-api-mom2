@@ -72,12 +72,12 @@ function printCourses(courses) {
 // Function with fetch to delete course
 function deleteCourse(id) {
     fetch("http://localhost:3000/courses/" + id, { method: 'DELETE' })
-        .then(response => response.text())
-        .then(text => {
+        .then(response => response.json())
+        .then(data => {
             // Call of function to rerender table
             getCourses();
             // Call of function to print message
-            deleteMessage(text);
+            deleteMessage(data.message);
         })
         .catch(err => console.log(err))
 }
